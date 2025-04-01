@@ -75,6 +75,20 @@ from pprint import pprint
 
 
 
+# def run():
+#     restaurant = Restaurant.objects.first()
+#     print(restaurant.sales.all())                   # sales is a related name
+
+
+
+######################################
+# Added Validation in model
+
+
 def run():
-    restaurant = Restaurant.objects.first()
-    print(restaurant.sales.all())                   # sales is a related name
+    rating = Rating.objects.create(user = User.objects.first(), restaurant = Restaurant.objects.first(), ratings = 9)
+    '''We can save this programatically without getting the error of validation, because validation is not at db level
+       so to get validation we have to call full_clean() method. Validations also works on model form, it automatically calls full_clean()'''
+    
+    rating.full_clean()   # This will give Validation error, if we remove this our data will inserted
+    rating.save()
